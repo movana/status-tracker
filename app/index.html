@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta content="IE=8,9,10,11, chrome=1" http-equiv="X-UA-Compatible"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<title>Status Tracker</title>
+    	<link  type="text/css" href="build/styles.css" rel="stylesheet">
+	</head>
+
+	<body ng-app="statusTracker">
+		<div ng-controller="statusController as status" class="content">
+			<h1>Status Tracker</h1>
+			<hr />
+			<span class="alert error" ng-if="status.dataErrorFlag">We're sorry, but we are experiencing a problem on our end. We are working hard to correct the issue. Please try again later, or <a href="mailto:contact@gmail.com">contact us</a> for assistance.</span>
+			<div class="status-table-container" ng-if="status.progressData && !status.dataErrorFlag">
+				<table>
+					<thead>
+						<tr>
+							<th>status</th>
+							<th>progress</th>
+							<th>user</th>
+							<th>request date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat-start="entry in status.progressData">
+							<td>
+								<span ng-if="!entry.start_date">Not Started</span>
+								<span ng-if="entry.start_date && entry.end_date && entry.total === entry.processed"> Completed: {{entry.end_date | convertdate}}</span>
+								<span ng-if="entry.start_date && entry.end_date && entry.total !== entry.processed"> Halted: {{entry.end_date | convertdate}}</span>
+								<span ng-if="entry.start_date && !entry.end_date && entry.total !== entry.processed"> Time Remaining: {{entry.remaining | convertSeconds}}</span>
+							</td>
+							<td>
+								<span ng-if="entry.processed" ng-bind="entry.processed | byteconverter"></span>
+								<span ng-if="entry.processed && entry.total">&nbsp;/&nbsp;
+								<span ng-if="entry.total" ng-bind="entry.total | byteconverter"></span>
+							</td>
+							<td>
+								<a ng-if="entry.email && ((entry.email | emailvalid) === true)" ng-href="{{'mailto:' + entry.email}}" title="{{'mailto:' + entry.email}}" ng-bind="entry.fullname | displayname: entry.username"></a>
+								<span ng-if="!entry.email || ((entry.email | emailvalid) === false)" ng-bind="entry.fullname | displayname: entry.username"><span>
+							</td>
+							<td ng-bind="entry.request_date | convertdate"></td>
+						</tr>
+						<tr ng-repeat-end>
+							<td colspan="4" ng-bind-html="status.renderHtml(entry.status)"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>		
+		</div>
+
+
+		<script src="/static/angular/angular.min.js"></script>
+		<script src="/build/app.js"></script>
+	</body>
+</html>

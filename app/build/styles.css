@@ -1,0 +1,63 @@
+body,
+p,
+span,
+th,
+td {
+  font-family: Verdana, sans-serif;
+  font-size: 15px;
+  color: #333;
+}
+.content {
+  max-width: 1300px;
+  min-width: 780px;
+  margin: auto;
+  padding: 20px;
+}
+.content h1 {
+  font-weight: 400;
+}
+.content hr {
+  border: 1px solid #ddd;
+}
+.content a {
+  color: #07c;
+  text-decoration: none;
+}
+.content a:hover {
+  text-decoration: underline;
+}
+.content .alert {
+  display: block;
+  border: 1px solid #db1f26;
+  background-color: #fdcacf;
+  width: 75%;
+  font-weight: 600;
+  padding: 14px;
+  margin: 20px auto;
+}
+.content .status-table-container {
+  max-width: 100%;
+  padding: 14px;
+}
+.content .status-table-container table {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  width: 100%;
+}
+.content .status-table-container table th,
+.content .status-table-container table td {
+  text-align: left;
+  padding: 7px;
+}
+.content .status-table-container table th {
+  font-weight: 600;
+  color: #666;
+}
+.content .status-table-container table tbody {
+  background-color: #eee;
+}
+.content .status-table-container table tbody tr:nth-child(4n-1),
+.content .status-table-container table tbody tr:nth-child(4n) {
+  background-color: #fff;
+}
